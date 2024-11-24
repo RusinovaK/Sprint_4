@@ -1,4 +1,5 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -81,10 +82,8 @@ public class TestOrderAScooter {
         objOrderModalWindow.clickOnYesButton();
 
         SuccessModalWindow objSuccessModalWindow = new SuccessModalWindow(driver);
-        objSuccessModalWindow.waitWhenButtonSeeStatusAppears();
-        objSuccessModalWindow.getTextFromButtonSeeStatusAndCheck();
-
-        driver.quit();
+        objSuccessModalWindow.waitWhenTextOrderPlacedAppears();
+        objSuccessModalWindow.getTextOrderPlacedAndCheck();
     }
 
     @Test
@@ -106,9 +105,12 @@ public class TestOrderAScooter {
         objOrderModalWindow.clickOnYesButton();
 
         SuccessModalWindow objSuccessModalWindow = new SuccessModalWindow(driver);
-        objSuccessModalWindow.waitWhenButtonSeeStatusAppears();
-        objSuccessModalWindow.getTextFromButtonSeeStatusAndCheck();
+        objSuccessModalWindow.waitWhenTextOrderPlacedAppears();
+        objSuccessModalWindow.getTextOrderPlacedAndCheck();
+    }
 
+    @After
+    public void tearDown() {
         driver.quit();
     }
 }

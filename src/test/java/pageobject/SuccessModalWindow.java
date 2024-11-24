@@ -4,27 +4,27 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.containsString;
+import org.hamcrest.MatcherAssert;
 
 public class SuccessModalWindow {
     private WebDriver driver;
 
-    //кнопка "Посмотреть статус" в модальном окне "Заказ оформлен"
-    private By buttonSeeStatus = By.xpath(".//button[text()='Посмотреть статус']");
+    //текст "Заказ оформлен" в модальном окне
+    private By textOrderPlaced = By.xpath(".//div[text()='Заказ оформлен']");
 
     public SuccessModalWindow(WebDriver driver){
         this.driver = driver;
     }
 
-    public void waitWhenButtonSeeStatusAppears(){
+    public void waitWhenTextOrderPlacedAppears(){
         new WebDriverWait(driver, 5)
-                .until(ExpectedConditions.visibilityOf(driver.findElement(buttonSeeStatus)));
+                .until(ExpectedConditions.visibilityOf(driver.findElement(textOrderPlaced)));
     }
 
-    public void getTextFromButtonSeeStatusAndCheck(){
-        String result = driver.findElement(buttonSeeStatus).getText();
-        String expected = "Посмотреть статус";
-        assertEquals(expected, result);
+    public void getTextOrderPlacedAndCheck(){
+        String expected = "Заказ оформлен";
+        String result = driver.findElement(textOrderPlaced).getText();
+        MatcherAssert.assertThat(result, containsString(expected));
     }
-
 }
